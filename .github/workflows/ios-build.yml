@@ -1,0 +1,16 @@
+name: iOS build
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen
+      - run: xcodegen generate
+      - name: Build (simulador, sem assinatura)
+        run: |
+          xcodebuild -project CarMirror.xcodeproj -scheme CarMirror \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build

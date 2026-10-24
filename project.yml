@@ -1,0 +1,35 @@
+name: CarMirror
+options:
+  bundleIdPrefix: com.shaks
+  deploymentTarget:
+    iOS: "15.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    # Coloque aqui o ID do seu time Apple Developer (ex.: ABCDE12345)
+    DEVELOPMENT_TEAM: ""
+targets:
+  CarMirror:
+    type: application
+    platform: iOS
+    sources: [CarMirror, Shared]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shaks.carmirror
+        CODE_SIGN_ENTITLEMENTS: CarMirror/CarMirror.entitlements
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: CarMirror/Info.plist
+    dependencies:
+      - target: CarMirrorBroadcast
+        embed: true
+  CarMirrorBroadcast:
+    type: app-extension
+    platform: iOS
+    sources: [CarMirrorBroadcast, Shared]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shaks.carmirror.broadcast
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: CarMirrorBroadcast/Info.plist
